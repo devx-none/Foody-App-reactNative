@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Foody",
+    "slug": "foody"
+  },
+  "sourceExts": [ "js", "json", "ts", "tsx", "jsx", "vue"],
+   "entryPoint": "./src/App.js",
+   "assets": ["./src/res/fonts"]
+
+}
