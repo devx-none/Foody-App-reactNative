@@ -43,30 +43,16 @@ const Home = ({ navigation }) => {
       name: "Burger",
       icon: IL_Food_PNG,
       bgColor: "rgba(227,206,243,0.5)",
-      price: 1.53,
+      price: 35,
       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    },
-    {
-      name: "Tometo",
-      icon: IL_Tomato_PNG,
-      bgColor: "rgba(227,206,243,0.5)",
-      price: 1.53,
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    },
-    {
-      name: "Drinks",
-      icon: IL_Greentea_PNG,
-      bgColor: "rgba(227,206,243,0.5)",
-      price: 1.53,
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    },
+    }
   ];
   return (
     <SafeAreaView style={styles.flex1}>
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <View style={styles.flex1}>
         {/* Header */}
-        <Header drawer />
+        <Header drawer onPress={() => navigation.navigate("Cart")} />
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* search */}
           <View style={{ paddingHorizontal: 20 }}>
@@ -96,13 +82,13 @@ const Home = ({ navigation }) => {
                 // icon={<IC_Fruits/>}
                 color="rgba(233, 255, 210, 0.5)"
                 text="Menu"
-                onPress={() => navigation.navigate("Categories", "Vegetables")}
+                onPress={() => navigation.navigate("Categories", "Menu")}
               />
               <BoxItemCategories
                 icon={<IC_Fruits />}
                 color="rgba(169, 178, 169, 0.5)"
                 text="Fast food"
-                onPress={() => navigation.navigate("Categories", "Fruits")}
+                onPress={() => navigation.navigate("Categories", "Fast Food")}
               />
               <BoxItemCategories
                 icon={<IC_Drinks />}
@@ -114,7 +100,7 @@ const Home = ({ navigation }) => {
                 icon={<IC_Bakery />}
                 color="rgba(214, 255, 218, 0.5)"
                 text="Desserts"
-                onPress={() => navigation.navigate("Categories", "Bakery")}
+                onPress={() => navigation.navigate("Categories", "Desserts")}
               />
               <BoxItemCategories
                 icon={<IC_Bakery2 />}

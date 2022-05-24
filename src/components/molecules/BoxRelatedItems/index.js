@@ -11,7 +11,7 @@ const BoxRelatedItems = ({image, name, price, bgColor}) => {
       <View style={styles.wrapperDetail}>
         <View style={styles.rowDetail}>
           <Text>{name}</Text>
-          <Text style={styles.textPrice}>${price}</Text>
+          <Text style={styles.textPrice}>{price}DH</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -23,10 +23,10 @@ export default BoxRelatedItems;
 const styles = StyleSheet.create({
   container: bgColor => ({
     height: 120,
-    width: 120,
+    width: 140,
     backgroundColor: bgColor,
     borderRadius: 12,
-    padding: 5,
+    padding: 10,
     marginRight: 15,
   }),
   wrapperImage: {justifyContent: 'center', alignItems: 'center', flex: 1},

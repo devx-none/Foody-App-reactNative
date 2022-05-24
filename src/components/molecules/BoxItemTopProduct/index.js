@@ -14,7 +14,7 @@ const BoxItemTopProduct = ({bgColor, icon, text, price, onPress}) => {
         </View>
         <Gap height={20} />
         <View style={styles.price}>
-          <Text style={styles.wrapperButtom}>${price}</Text>
+          <Text style={styles.wrapperButtom}>{price} DH</Text>
         </View>
         <Gap height={20} />
         <View>
@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   }),
   text: {
-    paddingLeft: 45,
+    // paddingLeft: 45,
     fontSize: 16,
     fontFamily: fonts.Medium,
-    // alignItems: "center"
+    alignItems: "center"
   },
   price: {
     flexDirection: "row",
@@ -54,12 +54,13 @@ const styles = StyleSheet.create({
   wrapperButtom: {
     fontSize: 18,
     fontFamily: fonts.Medium,
+    justifyContent: "center",
   },
   image: {
     height: 110,
     width: 110,
     resizeMode: "contain",
-    marginLeft: 20,
+    // marginLeft: 20,
   },
  
 });

@@ -17,7 +17,10 @@ import {
   IL_Grapes_PNG,
   IL_Greentea_PNG,
   IL_Tomato_PNG,
+  IL_Food_PNG
 } from '../../res';
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Detail = ({route, navigation}) => {
   const dataParams = route.params;
@@ -25,37 +28,64 @@ const Detail = ({route, navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const [totalItem, setTotalItem] = useState(1);
 
+
   const dataRelatedItems = [
     {
-      name: 'Grapes',
-      icon: IL_Grapes_PNG,
-      bgColor: 'rgba(227,206,243,0.5)',
-      price: 1.53,
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      name: "Burger King",
+      icon: IL_Food_PNG,
+      bgColor: "rgba(227,206,243,0.5)",
+      price: 44,
+      desc: "",
     },
     {
-      name: 'Tometo',
-      icon: IL_Tomato_PNG,
-      bgColor: 'rgba(255, 234, 232, 0.5)',
-      price: 1.53,
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      name: "Burger ",
+      icon: IL_Food_PNG,
+      bgColor: "rgba(255, 234, 232, 0.5)",
+      price: 53,
+      desc: "",
     },
     {
-      name: 'Drinks',
-      icon: IL_Greentea_PNG,
-      bgColor: 'rgba(187, 208, 136, 0.5)',
-      price: 1.53,
-      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      name: "Burger cheese",
+      icon: IL_Food_PNG,
+      bgColor: "rgba(187, 208, 136, 0.5)",
+      price: 60,
+      desc: "",
     },
   ];
 
+   const onClickAddCart=(data)=>{
+
+   const itemcart = {
+     food: data,
+     quantity:  1,
+     price: data.price
+   }
+
+   AsyncStorage.getItem('cart').then((datacart)=>{
+       if (datacart !== null) {
+         // We have data!!
+         const cart = JSON.parse(datacart)
+         cart.push(itemcart)
+         AsyncStorage.setItem('cart',JSON.stringify(cart));
+       }
+       else{
+         const cart  = []
+         cart.push(itemcart)
+         AsyncStorage.setItem('cart',JSON.stringify(cart));
+       }
+       alert("Add Cart")
+     })
+     .catch((err)=>{
+       alert(err)
+     })
+ }
   const onCounterChange = value => {
     setTotalItem(value);
   };
 
   return (
     <SafeAreaView style={styles.flex1(bgColor)}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <View>
         {/* header */}
         <Header onPress={() => navigation.goBack()} />
@@ -98,7 +128,7 @@ const Detail = ({route, navigation}) => {
           </View>
           {/* button add to cart */}
           <Gap height={20} />
-          <Button text="Add to cart" />
+          <Button text="Add to cart" onPress={onClickAddCart} />
         </View>
       </View>
     </SafeAreaView>
@@ -161,7 +191,7 @@ const styles = StyleSheet.create({
   },
   wrapperBoxRelatedItems: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 0,
     paddingLeft: 20,
   },
 });

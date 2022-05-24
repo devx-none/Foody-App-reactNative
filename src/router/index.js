@@ -73,6 +73,11 @@ const Router = () => {
         component={Detail}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
