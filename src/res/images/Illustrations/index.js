@@ -8,6 +8,7 @@ import IL_Brinjal from './il_brinjal.png';
 import IL_RedOnion from './il_redonion.png';
 import IL_Brokoli from './il_brokoli.png';
 import IL_Food_PNG from './il_food_png.png';
+import orange_PNG from './orange.png';
 
 export {
   IL_GetStarted_PNG,
@@ -19,5 +20,6 @@ export {
   IL_Brinjal,
   IL_RedOnion,
   IL_Brokoli,
-  IL_Food_PNG
+  IL_Food_PNG,
+  orange_PNG,
 };

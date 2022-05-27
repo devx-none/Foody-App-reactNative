@@ -1,5 +1,4 @@
-
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -17,45 +16,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import icons
 // import Icon from "react-native-vector-icons/Ionicons";
 
-import {
-
-  IL_Food_PNG,
- 
-} from "../../res";
+import { IL_Food_PNG } from "../../res";
 import { Counter } from "../../components";
+import CartContext from "../../context/cartContext";
 
 export default function Cart({ navigation }) {
-    const [dataCart, setDataCart] = React.useState([]);
-    const [total, setTotalItem] = React.useState(0);
-    const [totalPrice, setTotalPrice] = React.useState(0);
-    
- const onCounterChange = (value) => {
-   setTotalItem(value);
- };
-    const ButtonAlert = () =>
-      Alert.alert("Your Order has been successfully", "Succes", [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => navigation.navigate("Home") },
-      ]);
+  const [dataCart, setDataCart] = React.useState([]);
+  const [total, setTotalItem] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  const { cartItems } = useContext(CartContext);
+
   useEffect(() => {
-    AsyncStorage.getItem("cart")
-      .then((cart) => {
-        if (cart !== null) {
-          // We have data!!
-          const cartfood = JSON.parse(cart);
-            setDataCart(cartfood);
-            console.log(cartfood);
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    console.log("cartItems");
+    console.log(cartItems);
   }, []);
-    
+  const onCounterChange = (value) => {
+    setTotalItem(value);
+  };
+  const ButtonAlert = () =>
+    Alert.alert("Your Order has been successfully", "Succes", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => navigation.navigate("Home") },
+    ]);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -67,64 +53,61 @@ export default function Cart({ navigation }) {
 
       <View style={{ flex: 1 }}>
         <ScrollView>
-          {/* {this.state.dataCart.map((item, i) => {
-            return ( */}
-          <View
-            style={{
-              width: width - 20,
-              margin: 10,
-              backgroundColor: "transparent",
-              flexDirection: "row",
-              borderBottomWidth: 2,
-              borderColor: "#cccccc",
-              paddingBottom: 10,
-            }}
-          >
-            <Image
-              resizeMode={"contain"}
-              style={{ width: width / 3, height: width / 3 }}
-              source={IL_Food_PNG}
-            />
-            <View
+          {cartItems && cartItems.length > 0 && cartItems.map((item) => (
+            <View key={item.id}
               style={{
-                flex: 1,
-                backgroundColor: "trangraysparent",
-                padding: 10,
-                justifyContent: "space-between",
+                width: width - 20,
+                margin: 10,
+                backgroundColor: "transparent",
+                flexDirection: "row",
+                borderBottomWidth: 2,
+                borderColor: "#cccccc",
+                paddingBottom: 10,
               }}
             >
-              <View>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                  {/* {item.food.name} */}
-                  Burger
-                </Text>
-                <Text>Lorem Ipsum de food</Text>
-              </View>
+              <Image
+                resizeMode={"contain"}
+                style={{ width: width / 3, height: width / 3 }}
+                source={IL_Food_PNG}
+              />
               <View
                 style={{
-                  flexDirection: "row",
+                  flex: 1,
+                  backgroundColor: "trangraysparent",
+                  padding: 10,
                   justifyContent: "space-between",
                 }}
               >
-                <Text
+                <View>
+                  <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                    {/* {item.food.name} */}
+                    {item.name}
+                  </Text>
+                  {/* <Text>{item.desc}</Text> */}
+                </View>
+                <View
                   style={{
-                    fontWeight: "bold",
-                    color: "#33c37d",
-                    fontSize: 20,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
                 >
-                  {/* ${item.price * item.quality} */}
-                  100 MAD
-                </Text>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-        
-                  <Counter onValueChange={onCounterChange} />
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "#33c37d",
+                      fontSize: 20,
+                    }}
+                  >
+                    {/* ${item.price * item.quality} */}
+                   {item.price} DH
+                  </Text>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Counter onValueChange={onCounterChange} />
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-          {/* );
-          })} */}
+          ))}
 
           <View style={{ height: 20 }} />
 

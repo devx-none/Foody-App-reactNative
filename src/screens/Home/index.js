@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useContext, useState,useEffect} from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import {
   Gap,
   Header,
 } from '../../components';
+import CartContext from '../../context/cartContext';
 import {
   colors,
   fonts,
@@ -40,6 +41,7 @@ const Home = ({ navigation }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const dataTopProducts = [
     {
+      id:"1",
       name: "Burger",
       icon: IL_Food_PNG,
       bgColor: "rgba(227,206,243,0.5)",

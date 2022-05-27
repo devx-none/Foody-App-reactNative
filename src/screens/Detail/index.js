@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useContext, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -8,8 +8,14 @@ import {
   Text,
   useColorScheme,
   View,
-} from 'react-native';
-import {BoxRelatedItems, Button, Counter, Gap, Header} from '../../components';
+} from "react-native";
+import {
+  BoxRelatedItems,
+  Button,
+  Counter,
+  Gap,
+  Header,
+} from "../../components";
 import {
   colors,
   fonts,
@@ -17,17 +23,19 @@ import {
   IL_Grapes_PNG,
   IL_Greentea_PNG,
   IL_Tomato_PNG,
-  IL_Food_PNG
-} from '../../res';
+  IL_Food_PNG,
+} from "../../res";
+
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CartContext from "../../context/cartContext";
 
-const Detail = ({route, navigation}) => {
+const Detail = ({ route, navigation }) => {
+  const { handleAddToCart } = useContext(CartContext);
   const dataParams = route.params;
   const bgColor = route.params.bgColor;
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === "dark";
   const [totalItem, setTotalItem] = useState(1);
-
 
   const dataRelatedItems = [
     {
@@ -53,33 +61,32 @@ const Detail = ({route, navigation}) => {
     },
   ];
 
-   const onClickAddCart=(data)=>{
+  const onClickAddCart = (data) => {
+    const itemcart = {
+      food: data,
+      quantity: 1,
+      price: data.price,
+    };
 
-   const itemcart = {
-     food: data,
-     quantity:  1,
-     price: data.price
-   }
-
-   AsyncStorage.getItem('cart').then((datacart)=>{
-       if (datacart !== null) {
-         // We have data!!
-         const cart = JSON.parse(datacart)
-         cart.push(itemcart)
-         AsyncStorage.setItem('cart',JSON.stringify(cart));
-       }
-       else{
-         const cart  = []
-         cart.push(itemcart)
-         AsyncStorage.setItem('cart',JSON.stringify(cart));
-       }
-       alert("Add Cart")
-     })
-     .catch((err)=>{
-       alert(err)
-     })
- }
-  const onCounterChange = value => {
+    AsyncStorage.getItem("@cart")
+      .then((datacart) => {
+        if (datacart !== null) {
+          // We have data!!
+          const cart = JSON.parse(datacart);
+          cart.push(itemcart);
+          AsyncStorage.setItem("@cart", JSON.stringify(cart));
+        } else {
+          const cart = [];
+          cart.push(itemcart);
+          AsyncStorage.setItem("@cart", JSON.stringify(cart));
+        }
+        alert("Add Cart");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+  const onCounterChange = (value) => {
     setTotalItem(value);
   };
 
@@ -128,7 +135,10 @@ const Detail = ({route, navigation}) => {
           </View>
           {/* button add to cart */}
           <Gap height={20} />
-          <Button text="Add to cart" onPress={onClickAddCart} />
+          <Button
+            text="Add to cart"
+            onPress={() => handleAddToCart(dataParams)}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -138,22 +148,22 @@ const Detail = ({route, navigation}) => {
 export default Detail;
 
 const styles = StyleSheet.create({
-  flex1: bgColor => ({
+  flex1: (bgColor) => ({
     flex: 1,
     backgroundColor: bgColor,
   }),
   wrapperImg: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     height: 150,
     width: 150,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   content: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     backgroundColor: colors.white,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
@@ -165,8 +175,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   rowTopContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   name: {
     fontFamily: fonts.SemiBold,
@@ -190,7 +200,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   wrapperBoxRelatedItems: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 0,
     paddingLeft: 20,
   },

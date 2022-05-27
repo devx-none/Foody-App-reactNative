@@ -13,24 +13,17 @@ import {
   colors,
   fonts,
  
-  IL_Food_PNG,
+  orange_PNG,
 } from "../../res";
 
 const Categories = ({route, navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const dataCategories = [
     {
-      name: "Burger King",
-      icon: IL_Food_PNG,
+      name: "juice orange",
+      icon: orange_PNG,
       bgColor: "rgba(140, 250, 145,0.5)",
-      price: 1.53,
-      desc: "",
-    },
-    {
-      name: "Burger Cheese",
-      icon: IL_Food_PNG,
-      bgColor: "rgba(251, 216, 224, 0.5)",
-      price: 1.53,
+      price: 13,
       desc: "",
     },
    

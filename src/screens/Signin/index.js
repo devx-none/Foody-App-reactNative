@@ -23,8 +23,8 @@ import Users from "../../models/users";
 
 const SignInScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
-    email: "",
-    password: "",
+    email: "elmahdi@email.com",
+    password: "pass1234",
     check_textInputChange: false,
     secureTextEntry: true,
     isValidUser: true,
@@ -145,6 +145,7 @@ const SignInScreen = ({ navigation }) => {
           <FontAwesome name="envelope-o" color={colors.text} size={20} />
           <TextInput
             placeholder="Your email"
+            value={data.email}
             placeholderTextColor="#666666"
             style={[
               styles.textInput,
@@ -185,6 +186,7 @@ const SignInScreen = ({ navigation }) => {
           <Feather name="lock" color={colors.text} size={20} />
           <TextInput
             placeholder="Your Password"
+            value={data.password}
             placeholderTextColor="#666666"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={[
